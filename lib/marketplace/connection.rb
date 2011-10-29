@@ -1,5 +1,7 @@
 module Marketplace
   class Connection
+    attr_accessor :merchant, :markeplace, :aws_access_key_id, :secret_key
+
     def initialize(options)
       self.merchant          = options[:merchant]
       self.marketplace       = options[:marketplace]
