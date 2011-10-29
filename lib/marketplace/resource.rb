@@ -1,7 +1,7 @@
 module Marketplace
   class Resource
-    def self.build(params)
-      URI.parse(params[:url])
+    def self.build(url)
+      URI.parse(url)
     end
   end
 end

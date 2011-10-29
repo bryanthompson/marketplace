@@ -8,8 +8,9 @@ module Marketplace
 
   extend self
 
-  def get(params)
-    uri = Resource.build(params)
-    Agent.get(uri)
+  def call(method, params={})
+    if url = Resource.build(params.delete(:url))
+      Agent.send(method, url, params)
+    end
   end
 end
