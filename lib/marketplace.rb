@@ -2,6 +2,7 @@ module Marketplace
   autoload :ActiveSupport, "active_support"
   autoload :Agent, "marketplace/agent"
   autoload :Connection, "marketplace/connection"
+  autoload :Credentials, "marketplace/credentials"
   autoload :Exceptions, "marketplace/exceptions"
   autoload :QueryString, "marketplace/query_string"
   autoload :Resource, "marketplace/resource"
