@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
  
   s.required_rubygems_version = ">= 1.3.6"
  
-  s.files        = Dir.glob("{bin,lib}/**/*") + %w(README.md)
+  s.files        = Dir.glob("{bin,lib,config}/**/*") + %w(README.md)
   s.require_path = 'lib'
 
   s.add_development_dependency("activesupport", ["~> 3.1.1"])
