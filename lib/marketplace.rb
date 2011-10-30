@@ -11,7 +11,7 @@ module Marketplace
 
   extend self
 
-  def call(method, params={})
+  def request(method, params={})
     if url = Resource.build(params.delete(:url))
       Agent.send(method, url, params)
     end

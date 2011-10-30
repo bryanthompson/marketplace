@@ -3,7 +3,7 @@ shared_examples_for "a request" do
   before { stub_request(method, url) }
 
   context "with a url" do
-    before { Marketplace.call(method, url: url) }
+    before { Marketplace.request(method, url: url) }
 
     it "visits the urls" do
       should have_been_made
