@@ -6,6 +6,7 @@ module Marketplace
   autoload :Exceptions, "marketplace/exceptions"
   autoload :QueryString, "marketplace/query_string"
   autoload :Resource, "marketplace/resource"
+  autoload :Signature, "marketplace/signature"
 
   extend self
 
