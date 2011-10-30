@@ -1,18 +1,11 @@
 require 'helper'
 
 describe Marketplace::Credentials do
-  describe ".load" do
-    let(:credentials) { mock("Marketplace::Credentials") }
-
+  describe "#new" do
     subject { Marketplace::Credentials }
 
-    before do
-      Marketplace::Credentials.stub(:new).and_return(credentials)
-      subject.should_receive(:new).and_return(credentials)
-    end
-
-    it "creates a new instance of itself" do
-      subject.load
+    it "is a singleton" do
+      expect { subject.new }.to raise_error(NoMethodError) 
     end
   end
 
