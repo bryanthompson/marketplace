@@ -3,6 +3,7 @@ module Marketplace
   autoload :Agent, "marketplace/agent"
   autoload :Connection, "marketplace/connection"
   autoload :Credentials, "marketplace/credentials"
+  autoload :Endpoint, "marketplace/endpoint"
   autoload :Exceptions, "marketplace/exceptions"
   autoload :QueryString, "marketplace/query_string"
   autoload :Resource, "marketplace/resource"
