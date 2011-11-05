@@ -1,4 +1,6 @@
 module Marketplace
+  require 'net/http'
+
   class Agent
     def self.get(uri, params)
       Net::HTTP.get(uri)
