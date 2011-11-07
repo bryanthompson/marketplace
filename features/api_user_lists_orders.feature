@@ -5,5 +5,5 @@ Feature: API user lists orders
     And I send that endpoint a post to /orders with parameters:
       | marketplace id | ATVPDKIKX0DER |
       | action         | ListOrders    |
-      | created after  | 01/01/2011    |
+      | created after  | 2011-01-01    |
     Then I should get a 200 response
