@@ -17,20 +17,8 @@ module Marketplace
       new(parameters)
     end
 
-    def delimited?
-      @endpoint.ends_with?(delimiter)
-    end
-
-    def delimiter
-      "/"
-    end
-
-    def delimit!
-      @endpoint + delimiter
-    end
-
     def endpoint
-      delimited? || delimit!
+      @endoint ||= delimited? ? @endpoint : delimit!
     end
 
     def parameters=(hsh)
@@ -50,5 +38,20 @@ module Marketplace
     def url
       [endpoint, path].compact.join
     end
+    
+    private
+
+    def delimited?
+      @endpoint.ends_with?(delimiter) if @endpoint.present?
+    end
+
+    def delimiter
+      "/"
+    end
+
+    def delimit!
+      @endpoint + delimiter if @endpoint.present?
+    end
+
   end
 end
