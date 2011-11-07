@@ -26,7 +26,7 @@ module Marketplace
     end
 
     def to_params
-      { 
+      {
         signature: encode!,
         signature_method: method,
         signature_version: version
