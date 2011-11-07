@@ -33,8 +33,18 @@ describe Marketplace::QueryString do
   describe "#construct!" do
     let(:query_string) { Marketplace::QueryString.new({a: 1}) }
     subject { query_string.construct! }
+
     it "escapes the parameters" do
-      pending
+      subject.should == "%3FA%3D1"
+    end
+  end
+
+  describe "#parts" do
+    let(:query_string) { Marketplace::QueryString.new({foo: "bar"}) }
+    subject { query_string.parts }
+
+    it "titleizes all keys in the has" do
+      should == { "Foo" => "bar" }
     end
   end
 
