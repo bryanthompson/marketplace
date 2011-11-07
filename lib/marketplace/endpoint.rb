@@ -1,24 +1,26 @@
 module Marketplace
   module Endpoint
-    extend self
-
-    ENDPOINTS = {
-      :CA => "https://mws.amazonservices.ca",
-      :DE => "https://mws.amazonservices.de",
-      :FR => "https://mws.amazonservices.fr",
-      :JP => "https://mws.amazonservices.jp",
-      :US => "https://mws.amazonservices.com",
-      :UK => "https://mws.amazonservices.co.uk"
+    ALL = {
+      :CA => "mws.amazonservices.ca",
+      :DE => "mws.amazonservices.de",
+      :FR => "mws.amazonservices.fr",
+      :JP => "mws.amazonservices.jp",
+      :US => "mws.amazonservices.com",
+      :UK => "mws.amazonservices.co.uk"
     }
 
-    DEFAULT = ENDPOINTS[:US]
-
-    def all
-      ENDPOINTS.values
+    def self.[](key)
+      ALL[key.to_sym]
     end
 
-    def countries
-      ENDPOINTS.keys
+    def self.all
+      ALL
     end
+
+    def self.countries
+      ALL.keys.map(&:to_s)
+    end
+
+    DEFAULT = self[:US]
   end
 end
