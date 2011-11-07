@@ -1,10 +1,10 @@
 require 'helper'
 
-describe Marketplace::Connection do
+describe Marketplace::QueryString do
   describe ".build" do
     let(:query_string) { mock("Marketplace::QueryString") }
 
-    subject { Marketplace::QueryString.build(parts) }
+    subject { Marketplace::QueryString }
 
     context "with no arguments" do
       let(:parts) { nil }
@@ -12,7 +12,7 @@ describe Marketplace::Connection do
 
       it "raises an error" do
         expect do
-          subject
+          subject.build(parts)
         end.to raise_error(Marketplace::Exceptions::QueryStringArgumentError, message)
       end
     end
@@ -21,18 +21,21 @@ describe Marketplace::Connection do
       let(:parts) { { a: 1 } }
 
       before do
-        Marketplace::QueryString.stub(:new).and_return(query_string)
+        Marketplace::QueryString.stub(:new).with(parts).and_return(query_string)
         Marketplace::QueryString.should_receive(:new).and_return(query_string)
+        query_string.should_receive(:construct!)
       end
 
-      it { should_not be_nil }
+      it { subject.build(parts) }
     end
   end
 
   describe "#construct!" do
     let(:query_string) { Marketplace::QueryString.new({a: 1}) }
     subject { query_string.construct! }
-    it { should be_a(URI::Generic) }
+    it "escapes the parameters" do
+      pending
+    end
   end
 
   describe "#parameters" do
@@ -40,12 +43,12 @@ describe Marketplace::Connection do
 
     context "with 1 parameter" do
       let(:parts) { { a: 1 } }
-      it { should == "?a=1" }
+      it { should == "?A=1" }
     end
 
     context "with 2 parameters" do
       let(:parts) { { a: 1, b: 2 } }
-      it { should == "?a=1&b=2" }
+      it { should == "?A=1&B=2" }
     end
   end
 end
