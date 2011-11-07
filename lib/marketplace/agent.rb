@@ -1,5 +1,5 @@
 module Marketplace
-  require 'net/http'
+  require 'net/https'
 
   class Agent
     def self.get(uri, params)
@@ -7,7 +7,11 @@ module Marketplace
     end
 
     def self.post(uri, params)
-      Net::HTTP.post_form(uri, params)
+      request(uri, params)
+    end
+
+    def self.request(uri, params)
+      Marketplace::Request.new(uri, params)
     end
   end
 end

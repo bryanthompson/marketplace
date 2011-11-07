@@ -1,7 +1,7 @@
 module Marketplace
   autoload :ActiveSupport, "active_support"
   autoload :Agent, "marketplace/agent"
-  autoload :Connection, "marketplace/connection"
+  autoload :Request, "marketplace/request"
   autoload :Credentials, "marketplace/credentials"
   autoload :Endpoint, "marketplace/endpoint"
   autoload :Exceptions, "marketplace/exceptions"
@@ -11,9 +11,9 @@ module Marketplace
 
   extend self
 
-  def request(method, params={})
-    if url = Resource.build(params.delete(:url))
-      Agent.send(method, url, params)
+  def request(method, parameters={})
+    if resource = Resource.build(parameters)
+      Agent.send(method, resource.uri, resource.parameters)
     end
   end
 end

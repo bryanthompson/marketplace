@@ -12,11 +12,10 @@ describe Marketplace::Agent do
   end
 
   describe ".post" do
-    subject { Marketplace::Agent }
-    before { Net::HTTP.should_receive(:post_form).with(uri, {}) }
+    subject { Marketplace::Agent.post(uri, {}) }
 
-    it "gets the http request" do
-      subject.post(uri, {})
+    it "sends the http request" do
+      subject.should be_a(Marketplace::Request)
     end
   end
 end
