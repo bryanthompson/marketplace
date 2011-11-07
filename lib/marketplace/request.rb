@@ -1,6 +1,7 @@
 module Marketplace
   require 'marketplace/signature'
   require 'marketplace/credentials'
+
   class Request
     attr_accessor :parameters, :uri
 
@@ -9,11 +10,11 @@ module Marketplace
       self.parameters = parameters
     end
 
-    def establish(uri)
-      http(uri).request(query_string)
+    def submit
+      http.request(query_string)
     end
 
-    def http(uri)
+    def http
       Net::HTTP.new(uri.to_s, 443).tap do |h|
         h.use_ssl = true
         h.verify_mode = OpenSSL::SSL::VERIFY_NONE

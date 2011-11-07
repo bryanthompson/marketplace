@@ -2,6 +2,7 @@ require 'helper'
 
 describe Marketplace::Agent do
   let(:uri) { URI.parse("http://google.com/") }
+
   describe ".get" do
     subject { Marketplace::Agent }
     before { Net::HTTP.should_receive(:get).with(uri) }
@@ -11,8 +12,8 @@ describe Marketplace::Agent do
     end
   end
 
-  describe ".post" do
-    subject { Marketplace::Agent.post(uri, {}) }
+  describe ".request" do
+    subject { Marketplace::Agent.request(uri, {}) }
 
     it "sends the http request" do
       subject.should be_a(Marketplace::Request)
