@@ -20,9 +20,11 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.add_development_dependency("activesupport", ["~> 3.1.1"])
+  s.add_development_dependency("cucumber", ["~> 1.1.1"])
   s.add_development_dependency("guard-focus", ["~> 0.0.1"])
   s.add_development_dependency("i18n", ["~> 0.6.0"])
   s.add_development_dependency("jeweler", ["~> 1.6.4"])
   s.add_development_dependency("rspec", ["~> 2.3.0"])
+  s.add_development_dependency("ruby-debug19", ["~> 0.11.6"])
   s.add_development_dependency("webmock", ["~> 1.7.7"])
 end
