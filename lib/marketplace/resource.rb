@@ -1,10 +1,9 @@
 module Marketplace
-  require "active_support/core_ext/string/starts_ends_with"
+  require "active_support/core_ext"
 
   class Resource
     attr_writer :endpoint
-    attr_reader :parameters
-    attr_accessor :path
+    attr_reader :parameters, :path
 
     EXTRA_PARAMS = [:endpoint, :path]
 
@@ -38,6 +37,10 @@ module Marketplace
       @parameters ||= hsh.delete_if do |k,v|
         EXTRA_PARAMS.include?(k.to_sym)
       end
+    end
+
+    def path=(value)
+      @path ||= value.titleize if value.present?
     end
 
     def uri
