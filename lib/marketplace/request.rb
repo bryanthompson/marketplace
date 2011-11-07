@@ -10,10 +10,6 @@ module Marketplace
       self.parameters = parameters
     end
 
-    def submit
-      http.request(query_string)
-    end
-
     def http
       Net::HTTP.new(uri.to_s, 443).tap do |h|
         h.use_ssl = true
@@ -27,6 +23,10 @@ module Marketplace
 
     def query_string
       Marketplace::QueryString.build(parameters)
+    end
+
+    def submit
+      http.request(query_string)
     end
 
     private
