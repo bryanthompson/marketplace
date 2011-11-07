@@ -1,16 +1,16 @@
 module Marketplace
+  require 'base64'
+  require 'digest'
+
   class Signature
-    require 'base64'
-    require 'digest'
+    attr_accessor :secret_key
 
-    attr_accessor :key
-
-    def initialize(key)
-      self.key = key
+    def initialize(secret_key)
+      self.secret_key = secret_key
     end
 
     def digest
-      Digest::HMAC.new(key, Digest::SHA1).digest
+      Digest::HMAC.new(secret_key, Digest::SHA1).digest
     end
 
     def encode!
@@ -23,6 +23,14 @@ module Marketplace
 
     def version
       "2"
+    end
+
+    def to_params
+      { 
+        signature: encode!,
+        signature_method: method,
+        signature_version: version
+      }
     end
   end
 end
