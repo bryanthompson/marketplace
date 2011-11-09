@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("activesupport", ["~> 3.1.1"])
   s.add_development_dependency("cucumber", ["~> 1.1.1"])
   s.add_development_dependency("guard-focus", ["~> 0.0.1"])
+  s.add_development_dependency("httparty", ["~> 0.8.1"])
   s.add_development_dependency("i18n", ["~> 0.6.0"])
   s.add_development_dependency("jeweler", ["~> 1.6.4"])
   s.add_development_dependency("rspec", ["~> 2.3.0"])

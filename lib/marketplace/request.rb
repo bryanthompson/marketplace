@@ -10,32 +10,26 @@ module Marketplace
       self.parameters = parameters
     end
 
-    def http
-      Net::HTTP.new(uri.to_s, 443).tap do |h|
-        h.use_ssl = true
-        h.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    def data
+      Net::HTTP::Post.new(uri.path).tap do |post|
+        post.set_form_data(query_string.to_hash)
       end
     end
 
-    def parameters=(params)
-      @parameters ||= params.merge(signature.to_params)
-    end
-
-    def query_string
-      Marketplace::QueryString.build(parameters)
-    end
-
     def submit
-      http.request(query_string)
+      Net::HTTP.start(uri.host, 443, use_ssl: true) do |h|
+        h.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        h.request(data)
+      end
     end
 
     private
-    def secret_key
-      Marketplace::Credentials.instance.secret_key
+    def credentials
+      Marketplace::Credentials.instance
     end
 
-    def signature
-      Marketplace::Signature.new(secret_key)
+    def query_string
+      Marketplace::QueryString.new(uri.path, parameters)
     end
   end
 end

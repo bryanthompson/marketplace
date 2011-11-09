@@ -1,21 +1,13 @@
 require 'helper'
 
 describe Marketplace::Signature do
-  let(:signature) { Marketplace::Signature.new('abc') }
+  let(:signature) { Marketplace::Signature.new('abc', '/foo') }
 
-  describe "#digest" do
-    subject { signature.digest }
-
-    it "creates a HMAC digest" do
-      subject.should == "\xCCG\xE3\xC0\xAA\f)\x84EDv\xD0a\x10\x8C\v\x11\x01w\xAE"
-    end
-  end
-
-  describe "#encode!" do
-    subject { signature.encode! }
+  describe "#sign!" do
+    subject { signature.sign! }
 
     it "base64 encodes the digest" do
-      subject.should == "zEfjwKoMKYRFRHbQYRCMCxEBd64="
+      subject.should == "9WNB0zwiu4bx7UjZbcmkft48YtRrfClsjFyV049ialU="
     end
 
     context "with newline characters" do
@@ -23,13 +15,13 @@ describe Marketplace::Signature do
     end
   end
 
-  describe "#method" do
-    subject { signature.method }
-    it { should == "HmacSHA1" }
+  describe ".method" do
+    subject { Marketplace::Signature.method }
+    it { should == "HmacSHA256" }
   end
 
-  describe "#version" do
-    subject { signature.version }
+  describe ".version" do
+    subject { Marketplace::Signature.version }
     it { should == "2" }
   end
 end

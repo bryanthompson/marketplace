@@ -1,64 +1,43 @@
 require 'helper'
 
 describe Marketplace::QueryString do
-  describe ".build" do
+  let(:path) { "/foo" }
+
+  describe ".new" do
     let(:query_string) { mock("Marketplace::QueryString") }
 
     subject { Marketplace::QueryString }
 
     context "with no arguments" do
-      let(:parts) { nil }
+      let(:parameters) { {} }
       let(:message) { "There were no parameters from which to build a query string" }
 
       it "raises an error" do
         expect do
-          subject.build(parts)
+          subject.new(path, parameters)
         end.to raise_error(Marketplace::Exceptions::QueryStringArgumentError, message)
       end
     end
-
-    context "given a hash" do
-      let(:parts) { { a: 1 } }
-
-      before do
-        Marketplace::QueryString.stub(:new).with(parts).and_return(query_string)
-        Marketplace::QueryString.should_receive(:new).and_return(query_string)
-        query_string.should_receive(:construct!)
-      end
-
-      it { subject.build(parts) }
-    end
   end
 
-  describe "#construct!" do
-    let(:query_string) { Marketplace::QueryString.new({a: 1}) }
-    subject { query_string.construct! }
+  describe "#to_canonical" do
+    let(:params) { { A: "1:1" } }
+    let(:query_string) { Marketplace::QueryString.new(path, params) }
+    subject { query_string.to_canonical }
+    before { query_string.stub(:parameters).and_return(params) }
 
     it "escapes the parameters" do
-      subject.should == "%3FA%3D1"
+      subject.should include("A=1%3A1")
     end
   end
 
-  describe "#parts" do
-    let(:query_string) { Marketplace::QueryString.new({foo: "bar"}) }
-    subject { query_string.parts }
+  describe "#sorted_parameters" do
+    let(:query_string) { Marketplace::QueryString.new(path, {foo: "bar"}) }
+    subject { query_string.sorted_parameters }
 
-    it "titleizes all keys in the has" do
-      should == { "Foo" => "bar" }
+    it "capitalizes all keys in the hash" do
+      subject.should have_key("Foo")
     end
   end
 
-  describe "#parameters" do
-    subject { Marketplace::QueryString.new(parts).parameters }
-
-    context "with 1 parameter" do
-      let(:parts) { { a: 1 } }
-      it { should == "?A=1" }
-    end
-
-    context "with 2 parameters" do
-      let(:parts) { { a: 1, b: 2 } }
-      it { should == "?A=1&B=2" }
-    end
-  end
 end

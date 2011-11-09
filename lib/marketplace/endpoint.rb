@@ -1,12 +1,12 @@
 module Marketplace
   module Endpoint
     ALL = {
-      :CA => "mws.amazonservices.ca",
-      :DE => "mws.amazonservices.de",
-      :FR => "mws.amazonservices.fr",
-      :JP => "mws.amazonservices.jp",
-      :US => "mws.amazonservices.com",
-      :UK => "mws.amazonservices.co.uk"
+      :CA => "https://mws.amazonservices.ca",
+      :DE => "https://mws.amazonservices.de",
+      :FR => "https://mws.amazonservices.fr",
+      :JP => "https://mws.amazonservices.jp",
+      :US => "https://mws.amazonservices.com",
+      :UK => "https://mws.amazonservices.co.uk"
     }
 
     def self.[](key)
@@ -21,6 +21,8 @@ module Marketplace
       ALL.keys.map(&:to_s)
     end
 
-    DEFAULT = self[:US]
+    def self.default
+      self[:US].gsub("https:\/\/", "")
+    end
   end
 end
