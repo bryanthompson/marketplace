@@ -32,13 +32,13 @@ module Marketplace
     end
 
     def uri
-      URI.parse(url)
+      URI(url)
     end
 
     def url
       [endpoint, path].compact.join
     end
-    
+
     private
 
     def delimited?

@@ -13,7 +13,7 @@ module Marketplace
       self.aws_access_key_id = options["aws_access_key_id"]
       self.secret_key        = options["secret_key"]
     end
-    
+
     def self.instance
       new(read_from_file)
     end
@@ -28,6 +28,13 @@ module Marketplace
 
     def self.root_directory
       current_directory + "/../.."
+    end
+
+    def to_params
+      {
+        seller_id: merchant,
+        marketplace_id: marketplace
+      }
     end
   end
 end

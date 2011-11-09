@@ -8,6 +8,7 @@ module Marketplace
   autoload :QueryString, "marketplace/query_string"
   autoload :Resource, "marketplace/resource"
   autoload :Signature, "marketplace/signature"
+  autoload :Timestamp, "marketplace/timestamp"
 
   extend self
 
