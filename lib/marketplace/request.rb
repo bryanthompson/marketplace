@@ -12,20 +12,8 @@ module Marketplace
 
     def data
       Net::HTTP::Post.new(uri.path).tap do |post|
-        post.set_form_data(
-          query_string
-            .to_hash
-            .merge("Signature" => signature.sign!)
-        )
+        post.set_form_data(query_string.to_hash)
       end
-    end
-
-    def canonical_query_string
-      query_string.construct!
-    end
-
-    def query_string
-      Marketplace::QueryString.new(parameters)
     end
 
     def submit
@@ -40,8 +28,8 @@ module Marketplace
       Marketplace::Credentials.instance
     end
 
-    def signature
-      Signature.new(canonical_query_string)
+    def query_string
+      Marketplace::QueryString.new(parameters)
     end
   end
 end

@@ -6,15 +6,11 @@ module Marketplace
     attr_writer :parts
 
     def initialize(parts)
+      raise Marketplace::Exceptions::QueryStringArgumentError unless parts
       self.parts = parts
     end
 
-    def self.build(parts)
-      raise Marketplace::Exceptions::QueryStringArgumentError unless parts
-      new(parts).construct!
-    end
-
-    def construct!
+    def to_canonical
       CGI.escape(parameters)
     end
 
@@ -27,7 +23,7 @@ module Marketplace
     end
 
     def parts
-      Hash[@parts.sort { |k,v| [camelize(k),v] }]
+      Hash[@parts.map { |k,v| [camelize(k),v] }.sort]
     end
 
     def parameters
@@ -35,7 +31,7 @@ module Marketplace
     end
 
     def to_hash
-      parts
+      parts.merge("Signature" => signature.sign!)
     end
 
     private
@@ -49,6 +45,10 @@ module Marketplace
 
     def timestamp
       Marketplace::Timestamp
+    end
+
+    def signature
+      Signature.new(to_canonical)
     end
   end
 end
