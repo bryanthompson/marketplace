@@ -3,9 +3,10 @@ module Marketplace
   require 'digest'
 
   class Signature
-    attr_accessor :query_string, :verb
+    attr_accessor :path, :query_string, :verb
 
-    def initialize(query_string, verb="POST")
+    def initialize(path, query_string, verb="POST")
+      self.path = path
       self.query_string = query_string
       self.verb = verb
     end
@@ -20,8 +21,7 @@ module Marketplace
     end
 
     def signature_string
-      # TODO: NEEDS PATH
-      "#{verb}\n#{Marketplace::Endpoint.default}\n\n#{query_string}"
+      "#{verb}\n#{Marketplace::Endpoint.default}#{path}\n\n#{query_string}"
     end
 
     def sha

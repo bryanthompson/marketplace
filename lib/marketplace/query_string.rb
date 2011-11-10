@@ -4,10 +4,12 @@ module Marketplace
 
   class QueryString
     attr_writer :parts
+    attr_accessor :path
 
-    def initialize(parts)
+    def initialize(parts, path)
       raise Marketplace::Exceptions::QueryStringArgumentError unless parts
       self.parts = parts
+      self.path = path
     end
 
     def to_canonical
@@ -48,7 +50,7 @@ module Marketplace
     end
 
     def signature
-      Signature.new(to_canonical)
+      Signature.new(path, to_canonical)
     end
   end
 end
