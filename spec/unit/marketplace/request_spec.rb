@@ -21,6 +21,6 @@ describe Marketplace::Request do
       Marketplace::QueryString.stub(:new).and_return(query_string)
       Marketplace::QueryString.should_receive(:new)
     end
-    it { subject.query_string }
+    it { subject.send(:query_string) }
   end
 end

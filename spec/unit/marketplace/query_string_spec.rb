@@ -1,7 +1,7 @@
 require 'helper'
 
 describe Marketplace::QueryString do
-  describe ".build" do
+  describe ".new" do
     let(:query_string) { mock("Marketplace::QueryString") }
 
     subject { Marketplace::QueryString }
@@ -12,28 +12,16 @@ describe Marketplace::QueryString do
 
       it "raises an error" do
         expect do
-          subject.build(parts)
+          subject.new(parts)
         end.to raise_error(Marketplace::Exceptions::QueryStringArgumentError, message)
       end
     end
-
-    context "given a hash" do
-      let(:parts) { { a: 1 } }
-
-      before do
-        Marketplace::QueryString.stub(:new).with(parts).and_return(query_string)
-        Marketplace::QueryString.should_receive(:new).and_return(query_string)
-        query_string.should_receive(:construct!)
-      end
-
-      it { subject.build(parts) }
-    end
   end
 
-  describe "#construct!" do
+  describe "#to_canonical" do
     let(:params) { { A: 1 } }
     let(:query_string) { Marketplace::QueryString.new(params) }
-    subject { query_string.construct! }
+    subject { query_string.to_canonical }
     before { query_string.stub(:parts).and_return(params) }
 
     it "escapes the parameters" do
