@@ -12,10 +12,11 @@ module Marketplace
 
     def data
       Net::HTTP::Post.new(uri.path).tap do |post|
-        qs = query_string
-          .to_hash
-          .merge("Signature" => signature.sign!)
-        post.set_form_data(qs)
+        post.set_form_data(
+          query_string
+            .to_hash
+            .merge("Signature" => signature.sign!)
+        )
       end
     end
 

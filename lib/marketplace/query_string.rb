@@ -27,7 +27,7 @@ module Marketplace
     end
 
     def parts
-      Hash[@parts.map { |k,v| [camelize(k),v] }]
+      Hash[@parts.sort { |k,v| [camelize(k),v] }]
     end
 
     def parameters

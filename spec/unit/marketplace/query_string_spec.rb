@@ -31,8 +31,10 @@ describe Marketplace::QueryString do
   end
 
   describe "#construct!" do
-    let(:query_string) { Marketplace::QueryString.new({a: 1}) }
+    let(:params) { { A: 1 } }
+    let(:query_string) { Marketplace::QueryString.new(params) }
     subject { query_string.construct! }
+    before { query_string.stub(:parts).and_return(params) }
 
     it "escapes the parameters" do
       subject.should == "%3FA%3D1"
@@ -43,22 +45,23 @@ describe Marketplace::QueryString do
     let(:query_string) { Marketplace::QueryString.new({foo: "bar"}) }
     subject { query_string.parts }
 
-    it "titleizes all keys in the has" do
-      should == { "Foo" => "bar" }
+    it "titleizes all keys in the hash" do
+      subject.should have_key("Foo")
     end
   end
 
   describe "#parameters" do
-    subject { Marketplace::QueryString.new(parts).parameters }
+    subject { Marketplace::QueryString.new(parts) }
+    before { subject.stub(:parts).and_return(parts) }
 
     context "with 1 parameter" do
-      let(:parts) { { a: 1 } }
-      it { should == "?A=1" }
+      let(:parts) { { A: 1 } }
+      its(:parameters) { should == "?A=1" }
     end
 
     context "with 2 parameters" do
-      let(:parts) { { a: 1, b: 2 } }
-      it { should == "?A=1&B=2" }
+      let(:parts) { { "A" => 1, "B" => 2 } }
+      its(:parameters) { should == "?A=1&B=2" }
     end
   end
 end

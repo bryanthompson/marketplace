@@ -20,6 +20,7 @@ module Marketplace
     end
 
     def signature_string
+      # TODO: NEEDS PATH
       "#{verb}\n#{Marketplace::Endpoint.default}\n\n#{query_string}"
     end
 
