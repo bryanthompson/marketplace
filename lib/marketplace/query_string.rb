@@ -6,7 +6,7 @@ module Marketplace
     attr_writer :parts
     attr_accessor :path
 
-    def initialize(parts, path)
+    def initialize(path, parts)
       raise Marketplace::Exceptions::QueryStringArgumentError unless parts
       self.parts = parts
       self.path = path

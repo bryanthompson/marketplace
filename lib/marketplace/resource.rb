@@ -52,6 +52,5 @@ module Marketplace
     def delimit!
       @endpoint + delimiter if @endpoint.present?
     end
-
   end
 end

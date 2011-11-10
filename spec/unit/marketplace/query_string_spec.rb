@@ -1,6 +1,8 @@
 require 'helper'
 
 describe Marketplace::QueryString do
+  let(:path) { "/foo" }
+
   describe ".new" do
     let(:query_string) { mock("Marketplace::QueryString") }
 
@@ -12,7 +14,7 @@ describe Marketplace::QueryString do
 
       it "raises an error" do
         expect do
-          subject.new(parts)
+          subject.new(path, parts)
         end.to raise_error(Marketplace::Exceptions::QueryStringArgumentError, message)
       end
     end
@@ -20,7 +22,7 @@ describe Marketplace::QueryString do
 
   describe "#to_canonical" do
     let(:params) { { A: 1 } }
-    let(:query_string) { Marketplace::QueryString.new(params) }
+    let(:query_string) { Marketplace::QueryString.new(path, params) }
     subject { query_string.to_canonical }
     before { query_string.stub(:parts).and_return(params) }
 
@@ -30,7 +32,7 @@ describe Marketplace::QueryString do
   end
 
   describe "#parts" do
-    let(:query_string) { Marketplace::QueryString.new({foo: "bar"}) }
+    let(:query_string) { Marketplace::QueryString.new(path, {foo: "bar"}) }
     subject { query_string.parts }
 
     it "titleizes all keys in the hash" do
@@ -39,7 +41,7 @@ describe Marketplace::QueryString do
   end
 
   describe "#parameters" do
-    subject { Marketplace::QueryString.new(parts) }
+    subject { Marketplace::QueryString.new(path, parts) }
     before { subject.stub(:parts).and_return(parts) }
 
     context "with 1 parameter" do

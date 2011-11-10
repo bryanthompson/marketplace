@@ -11,18 +11,16 @@ module Marketplace
     end
 
     def data
-      query_string.to_hash
-      # Net::HTTP::Post.new(uri.path).tap do |post|
-      #   post.set_form_data(query_string.to_hash)
-      # end
+      Net::HTTP::Post.new(uri.path).tap do |post|
+        post.set_form_data(query_string.to_hash)
+      end
     end
 
     def submit
-      puts data
-      # Net::HTTP.start(uri.host, 443, use_ssl: true) do |h|
-      #   h.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      #   h.request(data)
-      # end
+      Net::HTTP.start(uri.host, 443, use_ssl: true) do |h|
+        h.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        h.request(data)
+      end
     end
 
     private
@@ -31,7 +29,7 @@ module Marketplace
     end
 
     def query_string
-      Marketplace::QueryString.new(parameters, uri.path)
+      Marketplace::QueryString.new(uri.path, parameters)
     end
   end
 end
