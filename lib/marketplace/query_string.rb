@@ -20,11 +20,11 @@ module Marketplace
     end
 
     def sorted_parameters
-      Hash[parameters.map { |k,v| [camelize(k),v] }.sort]
+      @sorted_parameters ||= Hash[parameters.map { |k,v| [camelize(k),v] }.sort]
     end
 
     def parameters
-      "?" + @parameters.to_query
+      "?" + @sorted_parameters.to_query
     end
 
     def to_canonical
