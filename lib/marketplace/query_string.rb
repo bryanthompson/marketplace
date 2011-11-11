@@ -3,7 +3,7 @@ module Marketplace
   require 'active_support/core_ext'
 
   class QueryString
-    attr_accessor :path, :parameters, :sorted_parameters
+    attr_accessor :path
 
     def initialize(path, parameters)
       self.parameters = parameters
@@ -19,20 +19,22 @@ module Marketplace
         .merge(AWSAccessKeyId: credentials.aws_access_key_id)
     end
 
-    def sorted_parameters
-      @sorted_parameters ||= Hash[parameters.map { |k,v| [camelize(k),v] }.sort]
+    def parameters
+      @parameters
     end
 
-    def parameters
-      "?" + @sorted_parameters.to_query
+    def sorted_parameters
+      @sorted_parameters ||= Hash[@parameters.map do |k,v|
+        [camelize(k),v]
+      end.sort]
     end
 
     def to_canonical
-      CGI.escape(parameters)
+      CGI.escape(("?" + sorted_parameters.to_query))
     end
 
     def to_hash
-      sorted_parameters.merge("Signature" => signature.sign!)
+      @sorted_parameters.merge("Signature" => signature.sign!)
     end
 
     private

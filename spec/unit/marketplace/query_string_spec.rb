@@ -27,31 +27,17 @@ describe Marketplace::QueryString do
     before { query_string.stub(:parameters).and_return(params) }
 
     it "escapes the parameters" do
-      subject.should == "%3FA%3D1"
+      subject.should include("%3FA%3D1")
     end
   end
 
-  describe "#parameters" do
+  describe "#sorted_parameters" do
     let(:query_string) { Marketplace::QueryString.new(path, {foo: "bar"}) }
-    subject { query_string.parameters }
+    subject { query_string.sorted_parameters }
 
-    it "titleizes all keys in the hash" do
+    it "capitalizes all keys in the hash" do
       subject.should have_key("Foo")
     end
   end
 
-  describe "#parameters" do
-    subject { Marketplace::QueryString.new(path, parameters) }
-    before { subject.stub(:parameters).and_return(parameters) }
-
-    context "with 1 parameter" do
-      let(:parameters) { { A: 1 } }
-      its(:parameters) { should == "?A=1" }
-    end
-
-    context "with 2 parameters" do
-      let(:parameters) { { "A" => 1, "B" => 2 } }
-      its(:parameters) { should == "?A=1&B=2" }
-    end
-  end
 end
