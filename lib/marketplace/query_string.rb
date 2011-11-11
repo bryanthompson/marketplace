@@ -17,6 +17,7 @@ module Marketplace
         .merge(credentials.to_params)
         .merge(Marketplace::Signature.to_params)
         .merge(AWSAccessKeyId: credentials.aws_access_key_id)
+        .merge(Version: "2011-01-01")
     end
 
     def parameters
@@ -30,11 +31,13 @@ module Marketplace
     end
 
     def to_canonical
-      CGI.escape(("?" + sorted_parameters.to_query))
+      sorted_parameters.collect do |k, v|
+        [CGI.escape(k), CGI.escape(v)].join("=")
+      end.join("&")
     end
 
     def to_hash
-      @sorted_parameters.merge("Signature" => signature.sign!)
+      sorted_parameters.merge("Signature" => signature.sign!)
     end
 
     private

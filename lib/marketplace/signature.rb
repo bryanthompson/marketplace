@@ -17,19 +17,19 @@ module Marketplace
     end
 
     def encode
-      Base64.encode64(sha.digest).gsub("\n", "")
+      Base64.encode64(sha.digest).chomp
     end
 
     def signature_string
-      "#{verb}\n#{Marketplace::Endpoint.default}#{path}\n\n#{query_string}"
+      "#{verb}\n#{Marketplace::Endpoint.default}\n#{path}/2011-01-01\n#{query_string}"
     end
 
     def sha
-      Digest::HMAC.new(signature_string, Digest::SHA1)
+      Digest::SHA256.new(signature_string)
     end
 
     def self.method
-      "HmacSHA1"
+      "HmacSHA256"
     end
 
     def self.version
