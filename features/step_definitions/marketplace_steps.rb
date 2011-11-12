@@ -8,6 +8,5 @@ Given /^I send that endpoint a (get|post) to \/(orders) with parameters:$/ do |m
 end
 
 Then /^I should get a (\d+) response$/ do |code|
-  require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval] = 1; Debugger.settings[:autolist] = 1; debugger
   @response.code.should == code
 end
