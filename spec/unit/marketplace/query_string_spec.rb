@@ -21,13 +21,13 @@ describe Marketplace::QueryString do
   end
 
   describe "#to_canonical" do
-    let(:params) { { A: 1 } }
+    let(:params) { { A: "1:1" } }
     let(:query_string) { Marketplace::QueryString.new(path, params) }
     subject { query_string.to_canonical }
     before { query_string.stub(:parameters).and_return(params) }
 
     it "escapes the parameters" do
-      subject.should include("%3FA%3D1")
+      subject.should include("A=1%3A1")
     end
   end
 

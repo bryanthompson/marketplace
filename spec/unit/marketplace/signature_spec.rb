@@ -3,11 +3,11 @@ require 'helper'
 describe Marketplace::Signature do
   let(:signature) { Marketplace::Signature.new('abc', '/foo') }
 
-  describe "#encode" do
-    subject { signature.encode }
+  describe "#sign!" do
+    subject { signature.sign! }
 
     it "base64 encodes the digest" do
-      subject.should == "4xE5WFa02Lbqw8aTv3qcipyy96Y="
+      subject.should == "9WNB0zwiu4bx7UjZbcmkft48YtRrfClsjFyV049ialU="
     end
 
     context "with newline characters" do
@@ -17,7 +17,7 @@ describe Marketplace::Signature do
 
   describe ".method" do
     subject { Marketplace::Signature.method }
-    it { should == "HmacSHA1" }
+    it { should == "HmacSHA256" }
   end
 
   describe ".version" do

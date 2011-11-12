@@ -36,7 +36,7 @@ module Marketplace
     end
 
     def url
-      [endpoint, path, "/2011-01-01"].compact.join
+      [endpoint, path].compact.join
     end
 
     private
