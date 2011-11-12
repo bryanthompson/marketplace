@@ -32,8 +32,8 @@ module Marketplace
 
     def to_params
       {
-        seller_id: merchant,
-        marketplace_id: marketplace
+        "SellerId" => merchant,
+        "MarketplaceId.Id.1" => marketplace
       }
     end
   end

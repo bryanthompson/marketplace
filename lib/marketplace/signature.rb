@@ -12,20 +12,17 @@ module Marketplace
     end
 
     def sign!
-      sha.update(credentials.secret_key)
-      encode
-    end
-
-    def encode
-      Base64.encode64(sha.digest).chomp
+      sha.base64digest
     end
 
     def signature_string
-      "#{verb}\n#{Marketplace::Endpoint.default}\n#{path}/2011-01-01\n#{query_string}"
+      "#{verb}\n#{Marketplace::Endpoint.default}\n#{path}\n#{query_string}"
     end
 
     def sha
-      Digest::SHA256.new(signature_string)
+      Digest::HMAC.new(credentials.secret_key, Digest::SHA256).tap do |hmac|
+        hmac.update(signature_string)
+      end
     end
 
     def self.method
