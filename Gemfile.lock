@@ -6,6 +6,10 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
+    activemodel (3.1.1)
+      activesupport (= 3.1.1)
+      builder (~> 3.0.0)
+      i18n (~> 0.6)
     activesupport (3.1.1)
       multi_json (~> 1.0)
     addressable (2.2.6)
@@ -69,6 +73,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel (~> 3.1.1)
   activesupport (~> 3.1.1)
   cucumber (~> 1.1.1)
   guard-focus (~> 0.0.1)
