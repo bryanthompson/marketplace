@@ -9,6 +9,8 @@ module Marketplace
   autoload :Resource, "marketplace/resource"
   autoload :Signature, "marketplace/signature"
   autoload :Timestamp, "marketplace/timestamp"
+  autoload :Order, "marketplace/order"
+  autoload :ListOrder, "marketplace/list_order"
 
   extend self
 
