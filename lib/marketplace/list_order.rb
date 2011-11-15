@@ -1,7 +1,7 @@
 module Marketplace
   class ListOrder < Order
     include ActiveModel::Validations
-    include Marketplace::Validators
+    include Marketplace::OrderValidators
 
     attr_accessor :created_after, :last_updated_after
 

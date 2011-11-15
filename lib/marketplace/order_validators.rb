@@ -1,5 +1,5 @@
 module Marketplace
-  module Validators
+  module OrderValidators
     class CreatedAfterValidator < ActiveModel::Validator
       def validate(obj)
         if obj.created_after.present? && obj.last_updated_after.present?

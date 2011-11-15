@@ -12,7 +12,7 @@ module Marketplace
   autoload :Timestamp, "marketplace/timestamp"
   autoload :Order, "marketplace/order"
   autoload :ListOrder, "marketplace/list_order"
-  autoload :Validators, "marketplace/validators"
+  autoload :OrderValidators, "marketplace/order_validators"
 
   extend self
 
