@@ -1,5 +1,6 @@
 module Marketplace
   autoload :ActiveSupport, "active_support"
+  autoload :ActiveModel, "active_model"
   autoload :Agent, "marketplace/agent"
   autoload :Request, "marketplace/request"
   autoload :Credentials, "marketplace/credentials"
