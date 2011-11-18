@@ -3,12 +3,15 @@ module Marketplace
   require 'active_support/core_ext'
 
   class QueryString
-    attr_accessor :path
+    attr_accessor :path, :seller
 
     def initialize(path, parameters)
-      self.parameters = parameters
+      unless parameters.present?
+        raise Marketplace::Exceptions::QueryStringArgumentError
+      end
       self.path = path
-      raise Marketplace::Exceptions::QueryStringArgumentError unless parameters.present?
+      self.seller = parameters.delete(:seller)
+      self.parameters = parameters
     end
 
     def parameters=(value)
@@ -46,7 +49,7 @@ module Marketplace
     end
 
     def credentials
-      Marketplace::Credentials.instance
+      Marketplace::Credentials.for(seller)
     end
 
     def timestamp
@@ -54,7 +57,7 @@ module Marketplace
     end
 
     def signature
-      Signature.new(path, to_canonical)
+      Signature.new(path, seller, to_canonical)
     end
   end
 end

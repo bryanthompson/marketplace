@@ -1,10 +1,7 @@
 module Marketplace
-  require 'singleton'
   require 'yaml'
 
   class Credentials
-    include Singleton
-
     attr_accessor :merchant, :marketplace, :aws_access_key_id, :secret_key
 
     def initialize(options)
@@ -14,8 +11,8 @@ module Marketplace
       self.secret_key        = options["secret_key"]
     end
 
-    def self.instance
-      new(read_from_file)
+    def self.for(name)
+      new(read_from_file[name])
     end
 
     def self.read_from_file

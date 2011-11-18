@@ -1,7 +1,7 @@
 require 'helper'
 
 describe Marketplace::Signature do
-  let(:signature) { Marketplace::Signature.new('abc', '/foo') }
+  let(:signature) { Marketplace::Signature.new("abc", "example_seller", "/foo") }
 
   describe "#sign!" do
     subject { signature.sign! }

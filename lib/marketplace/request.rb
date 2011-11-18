@@ -1,6 +1,4 @@
 module Marketplace
-  require 'marketplace/signature'
-  require 'marketplace/credentials'
 
   class Request
     attr_accessor :parameters, :uri
@@ -24,10 +22,6 @@ module Marketplace
     end
 
     private
-    def credentials
-      Marketplace::Credentials.instance
-    end
-
     def query_string
       Marketplace::QueryString.new(uri.path, parameters)
     end

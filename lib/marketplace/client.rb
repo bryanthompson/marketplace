@@ -8,7 +8,7 @@ module Marketplace
     end
 
     def attributes
-      { endpoint: endpoint }
+      { endpoint: endpoint, seller: seller }
     end
 
     def list_orders(options)

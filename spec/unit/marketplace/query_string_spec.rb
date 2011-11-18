@@ -21,7 +21,7 @@ describe Marketplace::QueryString do
   end
 
   describe "#to_canonical" do
-    let(:params) { { A: "1:1" } }
+    let(:params) { { A: "1:1", seller: "example_seller" } }
     let(:query_string) { Marketplace::QueryString.new(path, params) }
     subject { query_string.to_canonical }
     before { query_string.stub(:parameters).and_return(params) }
@@ -32,7 +32,7 @@ describe Marketplace::QueryString do
   end
 
   describe "#sorted_parameters" do
-    let(:query_string) { Marketplace::QueryString.new(path, {foo: "bar"}) }
+    let(:query_string) { Marketplace::QueryString.new(path, {foo: "bar", seller: "example_seller"}) }
     subject { query_string.sorted_parameters }
 
     it "capitalizes all keys in the hash" do

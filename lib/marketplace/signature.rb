@@ -3,10 +3,11 @@ module Marketplace
   require 'digest'
 
   class Signature
-    attr_accessor :path, :query_string, :verb
+    attr_accessor :path, :query_string, :seller, :verb
 
-    def initialize(path, query_string, verb="POST")
+    def initialize(path, seller, query_string, verb="POST")
       self.path = path
+      self.seller = seller
       self.query_string = query_string
       self.verb = verb
     end
@@ -42,7 +43,7 @@ module Marketplace
 
     private
     def credentials
-      Marketplace::Credentials.instance
+      Marketplace::Credentials.for(seller)
     end
   end
 end
