@@ -1,5 +1,5 @@
 Given /^the "([^"]*)" endpoint$/ do |country|
-  @endpoint = Marketplace::Endpoint[country]
+  @endpoint = country
 end
 
 Given /^the "([^"]*)" seller$/ do |name|

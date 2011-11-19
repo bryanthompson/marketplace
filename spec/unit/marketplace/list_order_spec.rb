@@ -13,14 +13,14 @@ describe Marketplace::ListOrder do
       end
 
       context "when created_after is present" do
-        before { list_order.created_after = Time.parse("01/01/2011") }
+        before { list_order.created_after = "01/01/2011" }
         it { should be_valid }
       end
 
       context "last updated after is present and created_after is not" do
         before do
           list_order.created_after = nil
-          list_order.last_updated_after = Time.parse("01/01/2011")
+          list_order.last_updated_after = "01/01/2011"
         end
         it { should be_valid }
       end
@@ -29,8 +29,8 @@ describe Marketplace::ListOrder do
         let(:message) { "can't be used in conjunction with Last Updated After" }
 
         before do
-          list_order.last_updated_after = Time.parse("01/02/2011")
-          list_order.created_after = Time.parse("01/01/2011")
+          list_order.last_updated_after = "01/02/2011"
+          list_order.created_after = "01/01/2011"
         end
         it { should_not be_valid }
         it "has a message" do
@@ -43,8 +43,8 @@ describe Marketplace::ListOrder do
         let(:message) { "can't be used in conjunction with Created After" }
 
         before do
-          list_order.created_after = Time.parse("01/01/2011")
-          list_order.last_updated_after = Time.parse("01/02/2011")
+          list_order.created_after = "01/01/2011"
+          list_order.last_updated_after = "01/02/2011"
         end
         it { should_not be_valid }
         it "has a message" do
@@ -58,7 +58,7 @@ describe Marketplace::ListOrder do
 
   describe "#created_after=" do
     subject { list_order }
-    before { list_order.created_after = Time.parse("01/01/2011 00:00:00") }
+    before { list_order.created_after = "01/01/2011 00:00:00" }
     its(:created_after) { should == "2011-01-01T05:00:00Z" }
   end
 
@@ -69,7 +69,7 @@ describe Marketplace::ListOrder do
 
   describe "#parameters" do
     subject { list_order.parameters }
-    before { list_order.created_after = Time.parse("01/01/2011 00:00") }
+    before { list_order.created_after = "01/01/2011 00:00" }
     it { should == { created_after: "2011-01-01T05:00:00Z", path: "orders", action: "ListOrders" } }
   end
 end

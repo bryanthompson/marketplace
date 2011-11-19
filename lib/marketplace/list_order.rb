@@ -8,10 +8,6 @@ module Marketplace
     include Marketplace::ListOrderDateAttributes
 
     attr_accessor \
-      :created_after,
-      :created_before,
-      :last_updated_after,
-      :last_updated_before,
       :order_status,
       :fullfillment_channel,
       :payment_method,
