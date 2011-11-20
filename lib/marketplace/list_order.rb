@@ -49,13 +49,5 @@ module Marketplace
     def action
       "ListOrders"
     end
-
-    def parameters
-      Hash[attributes.map do |attribute|
-        if value = send(attribute)
-          [attribute, value]
-        end
-      end]
-    end
   end
 end

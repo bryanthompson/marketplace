@@ -20,6 +20,10 @@ module Marketplace
       request(Marketplace::ListOrder.create(options))
     end
 
+    def request_report(options)
+      request(Marketplace::RequestReport.create(options))
+    end
+
     def request(parameters)
       Marketplace.request(:post, parameters.merge(attributes))
     end

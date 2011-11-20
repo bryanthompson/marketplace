@@ -1,14 +1,12 @@
 module Marketplace
-  module ListOrderDateAttributes
+  module RequestReportDateAttributes
     require 'date'
 
     extend ActiveSupport::Concern
 
     DATE_ATTRIBUTES = [
-      :created_after,
-      :created_before,
-      :last_updated_after,
-      :last_updated_before
+      :end_date,
+      :start_date
     ]
 
     included do

@@ -20,7 +20,7 @@ module Marketplace
         .merge(credentials.to_params)
         .merge(Marketplace::Signature.to_params)
         .merge(AWSAccessKeyId: credentials.aws_access_key_id)
-        .merge(Version: "2011-01-01")
+        .merge(Version: "2009-01-01")
     end
 
     def parameters
