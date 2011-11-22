@@ -1,14 +1,9 @@
 module Marketplace
   require 'active_model'
 
-  class RequestReport < Report
-    include RequestReportDateAttributes
+  class GetReport < Report
 
-    attr_accessor \
-      :action,
-      :report_type,
-      :show_sales_channel,
-      :version
+    attr_accessor :action, :max_count, :report_id
 
     def initialize(options)
       options.each { |k,v| self.send("#{k}=", options[k]) }
@@ -19,7 +14,7 @@ module Marketplace
     end
 
     def action
-      "RequestReport"
+      "GetReport"
     end
   end
 end

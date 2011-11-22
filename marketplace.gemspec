@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency("activesupport", ["~> 3.1.1"])
   s.add_development_dependency("activemodel", ["~> 3.1.1"])
+  s.add_development_dependency("crack", ["~> 0.3.1"])
   s.add_development_dependency("cucumber", ["~> 1.1.1"])
   s.add_development_dependency("guard-focus", ["~> 0.0.1"])
   s.add_development_dependency("httparty", ["~> 0.8.1"])

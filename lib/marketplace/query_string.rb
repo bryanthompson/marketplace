@@ -49,7 +49,7 @@ module Marketplace
     end
 
     def credentials
-      Marketplace::Credentials.for(seller)
+      @credentials ||= Marketplace::Credentials.for(seller)
     end
 
     def timestamp
@@ -57,7 +57,7 @@ module Marketplace
     end
 
     def signature
-      Signature.new(path, seller, to_canonical)
+      @signature ||= Signature.new(path, seller, to_canonical)
     end
   end
 end
