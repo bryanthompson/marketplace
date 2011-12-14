@@ -9,11 +9,11 @@ module Marketplace
     end
 
     def post(uri, params)
-      request(uri, params).submit
+      request(uri, params)
     end
 
-    def request(uri, params)
-      Marketplace::Request.new(uri, params)
+    def request(uri, params, body=nil)
+      Marketplace::Request.new(uri, params, body)
     end
   end
 end

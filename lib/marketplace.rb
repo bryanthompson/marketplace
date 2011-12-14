@@ -8,6 +8,7 @@ module Marketplace
   autoload :Credentials, "marketplace/credentials"
   autoload :Endpoint, "marketplace/endpoint"
   autoload :Exceptions, "marketplace/exceptions"
+  autoload :Feed, "marketplace/feed"
   autoload :GetReport, "marketplace/get_report"
   autoload :GetReportList, "marketplace/get_report_list"
   autoload :GetReportListDateAttributes, "marketplace/get_report_list_date_attributes"

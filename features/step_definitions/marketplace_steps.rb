@@ -28,6 +28,11 @@ Given /^I get the first report from that list$/ do
   @response = client.get_report(report_id: id)
 end
 
+Given /^I send that endpoint a post to the SubmitFeed action with parameters:$/ do |table|
+  body = table.rows_hash.delete("body")
+  @response = client.submit_feed(body, table.rows_hash)
+end
+
 Then /^I should get a (\d+) response$/ do |code|
   @response.code.should == code
 end

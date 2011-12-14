@@ -17,19 +17,25 @@ module Marketplace
     end
 
     def list_orders(options)
-      @response = request(Marketplace::ListOrder.create(options))
+      @response = request(Marketplace::ListOrder.create(options)).submit
     end
 
     def request_report(options)
-      @response = request(Marketplace::RequestReport.create(options))
+      @response = request(Marketplace::RequestReport.create(options)).submit
     end
 
     def get_report_list(options={})
-      @response = request(Marketplace::GetReportList.create(options))
+      @response = request(Marketplace::GetReportList.create(options)).submit
     end
 
     def get_report(options)
-      @response = request(Marketplace::GetReport.create(options))
+      @response = request(Marketplace::GetReport.create(options)).submit
+    end
+
+    def submit_feed(body, options)
+      @response = request(Marketplace::Feed.submit(options)).tap do |r|
+        r.body = body
+      end.submit
     end
 
     def request(parameters)
