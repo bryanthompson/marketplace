@@ -35,6 +35,7 @@ end
 
 Then /^I should get a (\d+) response$/ do |code|
   @response.code.should == code
+  @response.body.include?("<PingResponse>").should_not be_true
 end
 
 def client
