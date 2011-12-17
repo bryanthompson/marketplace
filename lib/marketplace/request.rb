@@ -1,12 +1,19 @@
 module Marketplace
+  require 'tempfile'
 
   class Request
     attr_accessor :body, :parameters, :uri
 
     def initialize(uri, parameters={}, body=nil)
-      self.body = body
       self.uri = uri
       self.parameters = parameters
+      self.body = body
+    end
+
+    def file
+      Tempfile.new("data").tap do |f|
+        f.write(body)
+      end
     end
 
     def data
@@ -14,8 +21,9 @@ module Marketplace
         post.set_form_data(query_string.to_hash)
         if body
           post['Content-MD5'] = md5
-          post.body = body
-          post.content_type = 'multipart/form-data'
+          post.content_type = 'text/xml'
+          post.content_length = file.size
+          post.body_stream = file.tap(&:rewind)
         end
       end
     end
@@ -34,7 +42,7 @@ module Marketplace
 
     def md5
       Digest::MD5.new.tap do |digest|
-        digest.update(body)
+        digest.update(file.tap(&:rewind).read)
       end.base64digest
     end
   end
