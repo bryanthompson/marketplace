@@ -21,9 +21,10 @@ module Marketplace
         post.set_form_data(query_string.to_hash)
         if body
           post['Content-MD5'] = md5
+          post['Transer-Encoding'] = 'chunked'
           post.content_type = 'text/xml'
           post.content_length = file.size
-          post.body_stream = file.tap(&:rewind)
+          post.body_stream = Marketplace::Chunked.new(file.tap(&:rewind), 5)
         end
       end
     end
@@ -42,7 +43,9 @@ module Marketplace
 
     def md5
       Digest::MD5.new.tap do |digest|
-        digest.update(file.tap(&:rewind).read)
+        file.tap(&:rewind).each do |line|
+          digest.update(line.chomp)
+        end
       end.base64digest
     end
   end

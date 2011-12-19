@@ -3,6 +3,7 @@ module Marketplace
   autoload :ActiveSupport, "active_support"
   autoload :Agent, "marketplace/agent"
   autoload :Base, "marketplace/base"
+  autoload :Chunked, "marketplace/chunked"
   autoload :Client, "marketplace/client"
   autoload :Crack, "crack/xml"
   autoload :Credentials, "marketplace/credentials"
