@@ -1,6 +1,6 @@
 module Marketplace
   class Feed < Base
-    attr_accessor :action, :feed_type 
+    attr_accessor :action, :feed_type, :purge_and_replace 
 
     def initialize(options)
       options.each { |k,v| self.send("#{k}=", options[k]) }
