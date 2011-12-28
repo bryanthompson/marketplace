@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("httparty", ["~> 0.8.1"])
   s.add_development_dependency("i18n", ["~> 0.6.0"])
   s.add_development_dependency("jeweler", ["~> 1.6.4"])
+  s.add_development_dependency("multipart-post", ["~> 1.1.4"])
   s.add_development_dependency("rspec", ["~> 2.3.0"])
   s.add_development_dependency("ruby-debug19", ["~> 0.11.6"])
   s.add_development_dependency("webmock", ["~> 1.7.7"])

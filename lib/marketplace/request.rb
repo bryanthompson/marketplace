@@ -1,5 +1,6 @@
 module Marketplace
   require 'tempfile'
+  require 'net/http/post/multipart'
 
   class Request
     attr_accessor :body, :parameters, :uri
@@ -17,15 +18,10 @@ module Marketplace
     end
 
     def data
-      Net::HTTP::Post.new(uri.path).tap do |post|
-        post.set_form_data(query_string.to_hash)
-        if body
-          post['Content-MD5'] = md5
-          post['Transer-Encoding'] = 'chunked'
-          post.content_type = 'text/xml'
-          post.content_length = file.size
-          post.body_stream = Marketplace::Chunked.new(file.tap(&:rewind), 5)
-        end
+      Net::HTTP::Post::Multipart.new(uri.path, 
+        file: UploadIO.new(file, "text/xml", "data.xml")).tap do |post|
+          post.set_form_data(query_string.to_hash)
+          post["Content-MD5"] = md5 if body
       end
     end
 
@@ -43,9 +39,7 @@ module Marketplace
 
     def md5
       Digest::MD5.new.tap do |digest|
-        file.tap(&:rewind).each do |line|
-          digest.update(line.chomp)
-        end
+        file.each { |line| digest.update(line.chomp) }
       end.base64digest
     end
   end
