@@ -11,17 +11,17 @@ module Marketplace
       self.body = body
     end
 
-    def file
-      Tempfile.new("data").tap do |f|
-        f.write(body)
-      end
-    end
-
     def data
       Net::HTTP::Post::Multipart.new(uri.path, 
         file: UploadIO.new(file, "text/xml", "data.xml")).tap do |post|
           post.set_form_data(query_string.to_hash)
           post["Content-MD5"] = md5 if body
+      end
+    end
+
+    def file
+      Tempfile.new("data").tap do |f|
+        f.write(body)
       end
     end
 
