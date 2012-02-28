@@ -59,7 +59,7 @@ describe Marketplace::ListOrder do
   describe "#created_after=" do
     subject { list_order }
     before { list_order.created_after = "01/01/2011 00:00:00" }
-    its(:created_after) { should == "2011-01-01T00:00:00Z" }
+    its(:created_after) { should == "2011-01-01T00:00:00+00:00" }
   end
 
   describe "#path" do
@@ -70,6 +70,6 @@ describe Marketplace::ListOrder do
   describe "#parameters" do
     subject { list_order.parameters }
     before { list_order.created_after = "01/01/2011 00:00" }
-    it { should == { created_after: "2011-01-01T00:00:00Z", path: "orders", action: "ListOrders" } }
+    it { should == { created_after: "2011-01-01T00:00:00+00:00", path: "orders", action: "ListOrders" } }
   end
 end

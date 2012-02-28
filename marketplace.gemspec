@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
- 
+
 require 'marketplace/version'
- 
+
 Gem::Specification.new do |s|
   s.name        = "marketplace"
   s.version     = Marketplace::VERSION
@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/daveott/marketplace"
   s.summary     = "Amazon MWS Ruby client library"
   s.description = "Amazon MWS Ruby client library"
- 
+
   s.required_rubygems_version = ">= 1.3.6"
- 
+
   s.files        = Dir.glob("{bin,lib,config}/**/*") + %w(README.md)
   s.require_path = 'lib'
 
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("i18n", ["~> 0.6.0"])
   s.add_development_dependency("jeweler", ["~> 1.6.4"])
   s.add_development_dependency("multipart-post", ["~> 1.1.4"])
-  s.add_development_dependency("rspec", ["~> 2.3.0"])
+  s.add_development_dependency("rspec", ["~> 2.8.0"])
   s.add_development_dependency("ruby-debug19", ["~> 0.11.6"])
   s.add_development_dependency("webmock", ["~> 1.7.7"])
 end

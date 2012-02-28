@@ -19,7 +19,7 @@ module Marketplace
           if value.present?
             instance_variable_set(
               :"@#{attribute.to_s}",
-              DateTime.parse(value).to_time.utc.iso8601
+              DateTime.parse(value).iso8601
             )
           end
         end
