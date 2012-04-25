@@ -79,6 +79,7 @@ Getting Involved
 To do items:
 
 - Cleanup the external api
+- Documentation
 - Fully wrap each api:
   - Feeds
   - Reports
