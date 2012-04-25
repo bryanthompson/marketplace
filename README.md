@@ -3,7 +3,7 @@ Marketplace
 
 Marketplace is an [Amazon MWS](http://developer.amazonservices.com) API wrapper for ruby.
 
-This gem was originally developed for a client but the project was abandoned and I didn't get paid in full. At this time the gem supports a specific set of features. In reality it does a lot more because there is a fair amount of work that has to be done to interact initially with Amazon's API. For example support for the Feeds API is nearly complete as a side effect of getting merchant product listings.
+This gem was originally developed for a client but the project was abandoned and I didn't get paid in full. At this time it supports a specific set of features. In reality it does a lot more because there is a fair amount of work that has to be done to interact initially with Amazon's API. For example support for the Feeds API is nearly complete as a side effect of getting merchant product listings. It is rough around the edges and could use some input from the community. If you'd like to help out please get in touch with me or clone it and go to town.
 
 Usage
 -----
@@ -68,3 +68,24 @@ Supported Features
     id = client.response["GetReportListResponse"]["GetReportListResult"]["ReportInfo"].first["ReportId"]
     response = client.get_report(max_count: 1, report_id: id)
     ```
+
+Getting Involved
+----------------
+
+- Clone
+- Setup the credentials.yml file with your own marketplace credentials
+- Run rake (tests should be green)
+
+To do items:
+
+- Cleanup the external api
+- Finish the Feeds API wrapper
+- Fully wrap each api:
+  - Feeds
+  - Reports
+  - Inbound Shipments
+  - Inventory
+  - Outbound Shipments
+  - Orders
+  - Products
+  - Sellers
